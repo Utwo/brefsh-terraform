@@ -8,7 +8,6 @@ locals {
 resource "aws_cloudfront_distribution" "distribution" {
   comment     = "Cloudfront distribution for ${var.project_slug}."
   price_class = var.cloudfront_price_class
-  aliases     = [var.hostname]
 
   origin {
     domain_name = replace(aws_apigatewayv2_stage.gw_stage_lambda.invoke_url, "/^https?://([^/]*).*/", "$1")

@@ -1,12 +1,14 @@
-# brefsh-terraform
+# Bref.sh Terraform
 
-Terraform example for bref.sh laravel deploy.
+Terraform example for [bref.sh](https://bref.sh) laravel deploy.
+
+[bref.sh](https://bref.sh) has native support for serverless framework type of deploy. This repository replicates the _serverless deploy_ but in terraform manifests.
 
 ## Prepare Laravel projet for deploy
 
-This command should be run on laravel project folder
+This commands should be run on the Laravel project folder
 
-Clear cache files from local
+Clear cache files from local machine
 
 ```
 $ php artisan config:clear
@@ -26,8 +28,10 @@ $ zip -r latest.zip . -x "*node_modules*" "*public/storage*" "*resources/assets*
 
 ## Appy terraform
 
-First copy the archive **latest.zip** generated earlier in the root of this repository.
+First copy the archive **latest.zip** generated earlier in the root of this repository. Then apply the terraform manifests.
 
 ```
 $ terraform apply
 ```
+
+Finally, terraform should create the same resources that serverless framework would have created.

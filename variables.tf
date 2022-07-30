@@ -1,8 +1,3 @@
-variable "hostname" {
-  description = "Domain of the web app"
-  type        = string
-}
-
 variable "project_slug" {
   description = "Project name"
   type        = string
@@ -29,7 +24,5 @@ variable "cloudfront_price_class" {
 variable "app_env_variables" {
   description = "Environment variables injected in the application"
   type        = map(string)
-  default = {
-    "APP_DEBUG" = false
-  }
+  default     = {}
 }

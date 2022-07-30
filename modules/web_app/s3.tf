@@ -1,6 +1,11 @@
 resource "aws_s3_bucket" "website_artifact" {
   bucket = local.s3_website_artifact.name
 
+  tags = {
+    Name = var.project_slug
+    Env  = var.env
+  }
+
   force_destroy = true
 }
 

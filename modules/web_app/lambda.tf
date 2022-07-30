@@ -66,6 +66,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 
 resource "aws_lambda_function" "lambda" {
   function_name = local.lambda.name
+  description   = "Lambda function for ${var.project_slug} web app"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "public/index.php"
   layers        = local.lambda.layers_arn_web
@@ -81,7 +82,7 @@ resource "aws_lambda_function" "lambda" {
   }
 
   environment {
-    variables = var.app_env_variables
+    variables = merge(var.app_env_variables, { APP_ENV = var.env, APP_KEY = random_password.app_key.result })
   }
 
   depends_on = [
@@ -92,6 +93,7 @@ resource "aws_lambda_function" "lambda" {
 
 resource "aws_lambda_function" "lambda_artisan" {
   function_name = "${local.lambda.name}-artisan"
+  description   = "Lambda function for ${var.project_slug} artisan"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "artisan"
   layers        = local.lambda.layers_arn_artisan
@@ -107,7 +109,7 @@ resource "aws_lambda_function" "lambda_artisan" {
   }
 
   environment {
-    variables = merge({ APP_ENV = var.env }, { APP_KEY = random_password.app_key.result }, var.app_env_variables)
+    variables = merge(var.app_env_variables, { APP_ENV = var.env, APP_KEY = random_password.app_key.result })
   }
 
   depends_on = [

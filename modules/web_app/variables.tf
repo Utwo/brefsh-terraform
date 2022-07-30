@@ -1,8 +1,3 @@
-variable "hostname" {
-  description = "Domain for website the web app"
-  type        = string
-}
-
 variable "project_slug" {
   description = "Project name"
   type        = string
